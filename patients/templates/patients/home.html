@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        nav {
+            background-color: #007BFF;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+        .patient-info {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        .patient-info p {
+            font-size: 18px;
+            margin: 12px 0;
+        }
+        a.button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 16px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a.button:hover {
+            background-color: #0056b3;
+        }
+        a.logout-button {
+            background-color: #dc3545;
+            margin-left: 10px;
+        }
+        a.logout-button:hover {
+            background-color: #b02a37;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Dashboard</a>
+        <a href="{% url 'edit_report' %}">Edit Report</a>
+        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+    </nav>
+
+    <h1>Welcome, {{ patient.user.username }}</h1>
+    <div class="patient-info">
+        <p><strong>Age:</strong> {{ patient.age }}</p>
+        <p><strong>Gender:</strong> {{ patient.gender }}</p>
+        <p><strong>Phone Number:</strong> {{ patient.phone_number }}</p>
+        <p><strong>Symptoms:</strong> {{ patient.symptoms }}</p>
+    </div>
+
+    <a href="{% url 'edit_report' %}" class="button">Edit Your Report</a>
+</body>
+</html>

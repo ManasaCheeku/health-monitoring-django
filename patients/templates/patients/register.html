@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Register</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4a90e2, #007acc);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container {
+        background: white;
+        padding: 40px 40px;
+        border-radius: 10px;
+        box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        width: 400px;
+    }
+    h2 {
+        text-align: center;
+        color: #004080;
+        margin-bottom: 30px;
+    }
+    form {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 15px 20px;
+        align-items: center;
+    }
+    label {
+        font-weight: 600;
+        color: #333;
+        justify-self: end;
+    }
+    input, select {
+        padding: 10px 12px;
+        font-size: 15px;
+        border: 2px solid #ccc;
+        border-radius: 6px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
+    input:focus, select:focus {
+        border-color: #007acc;
+        outline: none;
+    }
+    .full-width {
+        grid-column: 1 / -1;
+        text-align: center;
+        margin-top: 25px;
+    }
+    button {
+        background-color: #007acc;
+        border: none;
+        color: white;
+        font-weight: 700;
+        padding: 14px 0;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #005fa3;
+    }
+    .login-link {
+        margin-top: 15px;
+        text-align: center;
+        grid-column: 1 / -1;
+        font-size: 14px;
+        color: #555;
+    }
+    .login-link a {
+        color: #007acc;
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Create Your Account</h2>
+    <form method="post">
+        {% csrf_token %}
+        <!-- Example for custom labels and inputs -->
+        <label for="id_username">Username</label>
+        {{ user_form.username }}
+
+        <label for="id_password1">Password</label>
+        {{ user_form.password1 }}
+
+        <label for="id_password2">Confirm Password</label>
+        {{ user_form.password2 }}
+
+        <label for="id_age">Age</label>
+        {{ patient_form.age }}
+
+        <label for="id_gender">Gender</label>
+        {{ patient_form.gender }}
+
+        <label for="id_phone_number">Phone</label>
+        {{ patient_form.phone_number }}
+
+        <div class="full-width">
+            <button type="submit">Register</button>
+        </div>
+    </form>
+    <p class="login-link">Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
+</div>
+</body>
+</html>
