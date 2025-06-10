@@ -15,9 +15,9 @@ pipeline {
 
         stage('Set Up Virtual Environment') {
             steps {
-                sh '''
-                    python3 -m venv $VENV
-                    source $VENV/bin/activate
+                bat '''
+                    python -m venv %VENV%
+                    call %VENV%\\Scripts\\activate
                     pip install --upgrade pip
                     pip install -r requirements.txt
                 '''
@@ -26,8 +26,8 @@ pipeline {
 
         stage('Run Migrations') {
             steps {
-                sh '''
-                    source $VENV/bin/activate
+                bat '''
+                    call %VENV%\\Scripts\\activate
                     python manage.py makemigrations
                     python manage.py migrate
                 '''
@@ -36,8 +36,8 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh '''
-                    source $VENV/bin/activate
+                bat '''
+                    call %VENV%\\Scripts\\activate
                     python manage.py test
                 '''
             }
@@ -45,8 +45,8 @@ pipeline {
 
         stage('Collect Static Files') {
             steps {
-                sh '''
-                    source $VENV/bin/activate
+                bat '''
+                    call %VENV%\\Scripts\\activate
                     python manage.py collectstatic --noinput
                 '''
             }
