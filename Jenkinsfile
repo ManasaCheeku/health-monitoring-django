@@ -9,17 +9,17 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/ManasaCheeku/health-monitoring-django'
+                git branch: 'main', url: 'https://github.com/ManasaCheeku/health-monitoring-django'
             }
         }
 
         stage('Set Up Virtual Environment') {
             steps {
                 sh '''
-                python3 -m venv $VENV
-                source $VENV/bin/activate
-                pip install --upgrade pip
-                pip install -r requirements.txt
+                    python3 -m venv $VENV
+                    source $VENV/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
                 '''
             }
         }
@@ -27,9 +27,9 @@ pipeline {
         stage('Run Migrations') {
             steps {
                 sh '''
-                source $VENV/bin/activate
-                python manage.py makemigrations
-                python manage.py migrate
+                    source $VENV/bin/activate
+                    python manage.py makemigrations
+                    python manage.py migrate
                 '''
             }
         }
@@ -37,8 +37,8 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                source $VENV/bin/activate
-                python manage.py test
+                    source $VENV/bin/activate
+                    python manage.py test
                 '''
             }
         }
@@ -46,8 +46,8 @@ pipeline {
         stage('Collect Static Files') {
             steps {
                 sh '''
-                source $VENV/bin/activate
-                python manage.py collectstatic --noinput
+                    source $VENV/bin/activate
+                    python manage.py collectstatic --noinput
                 '''
             }
         }
