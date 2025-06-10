@@ -1,121 +1,127 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Register</title>
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #4a90e2, #007acc);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .container {
-        background: white;
-        padding: 40px 40px;
-        border-radius: 10px;
-        box-shadow: 0 12px 20px rgba(0,0,0,0.15);
-        width: 400px;
-    }
-    h2 {
-        text-align: center;
-        color: #004080;
-        margin-bottom: 30px;
-    }
-    form {
-        display: grid;
-        grid-template-columns: 120px 1fr;
-        gap: 15px 20px;
-        align-items: center;
-    }
-    label {
-        font-weight: 600;
-        color: #333;
-        justify-self: end;
-    }
-    input, select {
-        padding: 10px 12px;
-        font-size: 15px;
-        border: 2px solid #ccc;
-        border-radius: 6px;
-        width: 100%;
-        box-sizing: border-box;
-        transition: border-color 0.3s;
-    }
-    input:focus, select:focus {
-        border-color: #007acc;
-        outline: none;
-    }
-    .full-width {
-        grid-column: 1 / -1;
-        text-align: center;
-        margin-top: 25px;
-    }
-    button {
-        background-color: #007acc;
-        border: none;
-        color: white;
-        font-weight: 700;
-        padding: 14px 0;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 18px;
-        width: 100%;
-        transition: background-color 0.3s;
-    }
-    button:hover {
-        background-color: #005fa3;
-    }
-    .login-link {
-        margin-top: 15px;
-        text-align: center;
-        grid-column: 1 / -1;
-        font-size: 14px;
-        color: #555;
-    }
-    .login-link a {
-        color: #007acc;
-        font-weight: 600;
-        text-decoration: none;
-    }
-    .login-link a:hover {
-        text-decoration: underline;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'patients/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4a90e2, #007acc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: 420px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #004080;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input, select {
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1.5px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            background-color: #007acc;
+            color: white;
+            font-weight: bold;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        .bottom-links {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .bottom-links a {
+            color: #007acc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .bottom-links a:hover {
+            text-decoration: underline;
+        }
+
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            background-color: #004080;
+            padding: 8px 14px;
+            border-radius: 5px;
+        }
+
+        .home-link:hover {
+            background-color: #003060;
+        }
+    </style>
 </head>
 <body>
+
+<a class="home-link" href="{% url 'welcome' %}">← Home</a>
+
 <div class="container">
     <h2>Create Your Account</h2>
     <form method="post">
         {% csrf_token %}
-        <!-- Example for custom labels and inputs -->
-        <label for="id_username">Username</label>
-        {{ user_form.username }}
+        {{ user_form.username.label_tag }}{{ user_form.username }}
+        {{ user_form.password1.label_tag }}{{ user_form.password1 }}
+        {{ user_form.password2.label_tag }}{{ user_form.password2 }}
 
-        <label for="id_password1">Password</label>
-        {{ user_form.password1 }}
+        {{ patient_form.name.label_tag }}{{ patient_form.name }}
+        {{ patient_form.age.label_tag }}{{ patient_form.age }}
+        {{ patient_form.gender.label_tag }}{{ patient_form.gender }}
+        {{ patient_form.phone_number.label_tag }}{{ patient_form.phone_number }}
+        {{ patient_form.email.label_tag }}{{ patient_form.email }}
+        {{ patient_form.location.label_tag }}{{ patient_form.location }}
+        {{ patient_form.symptoms.label_tag }}{{ patient_form.symptoms }}
 
-        <label for="id_password2">Confirm Password</label>
-        {{ user_form.password2 }}
-
-        <label for="id_age">Age</label>
-        {{ patient_form.age }}
-
-        <label for="id_gender">Gender</label>
-        {{ patient_form.gender }}
-
-        <label for="id_phone_number">Phone</label>
-        {{ patient_form.phone_number }}
-
-        <div class="full-width">
-            <button type="submit">Register</button>
-        </div>
+        <button type="submit">Register</button>
     </form>
-    <p class="login-link">Already have an account? <a href="{% url 'login' %}">Log in here</a></p>
+    <div class="bottom-links">
+        Already have an account? <a href="{% url 'login' %}">Login here</a>
+    </div>
 </div>
 </body>
 </html>

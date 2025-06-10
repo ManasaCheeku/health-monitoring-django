@@ -92,3 +92,7 @@ def patient_api(request):
     patient = get_object_or_404(Patient, user=request.user)
     serializer = PatientSerializer(patient)
     return Response(serializer.data)
+
+# Chatbot View
+def chatbot(request):
+    return render(request, 'patients/chatbot.html')

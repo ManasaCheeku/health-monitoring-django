@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HealthBot - Chat Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .chat-container {
+            width: 400px;
+            height: 500px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        .messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin: 5px 0;
+        }
+
+        .user {
+            text-align: right;
+            color: #007bff;
+        }
+
+        .bot {
+            text-align: left;
+            color: #28a745;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>HealthBot 💬</h2>
+    <div class="chat-container">
+        <div class="messages" id="chatBox"></div>
+        <input type="text" id="userInput" placeholder="Ask me something..." onkeydown="if(event.key === 'Enter') sendMessage()" />
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById("userInput");
+            const message = input.value.trim();
+            if (message === "") return;
+
+            const chatBox = document.getElementById("chatBox");
+
+            // Show user's message
+            const userMsg = document.createElement("div");
+            userMsg.className = "message user";
+            userMsg.textContent = "You: " + message;
+            chatBox.appendChild(userMsg);
+
+            // Dummy bot reply logic
+            let reply = "I'm just a demo chatbot!";
+            if (message.toLowerCase().includes("hello")) reply = "Hello! How can I help you today?";
+            if (message.toLowerCase().includes("covid")) reply = "Please wear a mask and maintain distance!";
+            if (message.toLowerCase().includes("fever")) reply = "Please drink water, rest, and consult a doctor.";
+
+            const botMsg = document.createElement("div");
+            botMsg.className = "message bot";
+            botMsg.textContent = "Bot: " + reply;
+            chatBox.appendChild(botMsg);
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+            input.value = "";
+        }
+    </script>
+</body>
+</html>

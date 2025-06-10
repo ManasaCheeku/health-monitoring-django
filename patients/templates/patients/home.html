@@ -75,8 +75,14 @@
         <p><strong>Gender:</strong> {{ patient.gender }}</p>
         <p><strong>Phone Number:</strong> {{ patient.phone_number }}</p>
         <p><strong>Symptoms:</strong> {{ patient.symptoms }}</p>
+
+        {% if patient.qr_code %}
+            <p><strong>QR Code:</strong></p>
+            <img src="{{ patient.qr_code.url }}" alt="Patient QR Code" width="150">
+        {% endif %}
     </div>
 
     <a href="{% url 'edit_report' %}" class="button">Edit Your Report</a>
+    <a href="{% url 'chatbot' %}" class="button">💬 Talk to Health Chatbot</a>
 </body>
 </html>

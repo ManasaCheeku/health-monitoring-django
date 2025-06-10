@@ -11,4 +11,5 @@ urlpatterns = [
     path('patient/<int:user_id>/', views.patient_detail, name='patient_detail'),
     path('contact/', views.contact, name='contact'),
     path('api/patient/', views.patient_api, name='patient_api'),
+    path('chatbot/', views.chatbot, name='chatbot'),  # 👈 chatbot dummy view
 ]
