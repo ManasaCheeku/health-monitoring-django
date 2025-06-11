@@ -71,5 +71,6 @@ class PatientAppTests(TestCase):
             'message': 'Hello, this is a test message.',
         })
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Thank you for your message')  # Assuming your template shows success message
+        self.assertContains(response, 'Your message has been sent successfully!')
+ # Assuming your template shows success message
 
