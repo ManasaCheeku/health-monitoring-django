@@ -13,42 +13,58 @@ pipeline {
             }
         }
 
+        stage('Trust Git Directory') {
+            steps {
+                dir('health-monitoring-django') {
+                    bat 'git config --global --add safe.directory "%cd%"'
+                }
+            }
+        }
+
         stage('Set Up Virtual Environment') {
             steps {
-                bat '''
-                    python -m venv %VENV%
-                    call %VENV%\\Scripts\\activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
+                dir('health-monitoring-django') {
+                    bat '''
+                        python -m venv %VENV%
+                        call %VENV%\\Scripts\\activate
+                        pip install --upgrade pip
+                        pip install -r requirements.txt
+                    '''
+                }
             }
         }
 
         stage('Run Migrations') {
             steps {
-                bat '''
-                    call %VENV%\\Scripts\\activate
-                    python manage.py makemigrations
-                    python manage.py migrate
-                '''
+                dir('health-monitoring-django') {
+                    bat '''
+                        call %VENV%\\Scripts\\activate
+                        python manage.py makemigrations
+                        python manage.py migrate
+                    '''
+                }
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat '''
-                    call %VENV%\\Scripts\\activate
-                    python manage.py test
-                '''
+                dir('health-monitoring-django') {
+                    bat '''
+                        call %VENV%\\Scripts\\activate
+                        python manage.py test
+                    '''
+                }
             }
         }
 
         stage('Collect Static Files') {
             steps {
-                bat '''
-                    call %VENV%\\Scripts\\activate
-                    python manage.py collectstatic --noinput
-                '''
+                dir('health-monitoring-django') {
+                    bat '''
+                        call %VENV%\\Scripts\\activate
+                        python manage.py collectstatic --noinput
+                    '''
+                }
             }
         }
 
