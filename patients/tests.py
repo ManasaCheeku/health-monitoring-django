@@ -10,6 +10,7 @@ class PatientAppTests(TestCase):
         self.user = User.objects.create_user(username='testuser', password='testpass123')
         self.patient = Patient.objects.create(
             user=self.user,
+            name='Initial Name',
             age=30,
             gender='Male',
             phone_number='1234567890',
@@ -39,6 +40,7 @@ class PatientAppTests(TestCase):
     def test_edit_report(self):
         self.client.login(username='testuser', password='testpass123')
         response = self.client.post(reverse('edit_report'), {
+            'name': 'Updated Name',  # ✅ Added missing required field
             'age': 35,
             'gender': 'Male',
             'phone_number': '9876543210',
@@ -48,8 +50,12 @@ class PatientAppTests(TestCase):
         })
         self.assertRedirects(response, reverse('home'))
         self.patient.refresh_from_db()
+        self.assertEqual(self.patient.name, 'Updated Name')  # ✅ Assert name updated
         self.assertEqual(self.patient.age, 35)
+        self.assertEqual(self.patient.gender, 'Male')
+        self.assertEqual(self.patient.phone_number, '9876543210')
         self.assertEqual(self.patient.location, 'New City')
+        self.assertEqual(self.patient.symptoms, 'Headache')
 
     def test_patient_detail_access(self):
         self.client.login(username='testuser', password='testpass123')
@@ -72,5 +78,3 @@ class PatientAppTests(TestCase):
         })
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Your message has been sent successfully!')
- # Assuming your template shows success message
-
